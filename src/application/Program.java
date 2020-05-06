@@ -1,6 +1,5 @@
 package application;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -28,14 +27,8 @@ public class Program {
             listingService.readFile();
             CandidateSummaryReport report = new CandidateSummaryReport();
             report.countVotes(listingService);
-            
-            /* Descending order by number of Votes */
-            Iterator<VoteCount> summary = report.summary(new Comparator<VoteCount>() {
-                @Override
-                public int compare(VoteCount o1, VoteCount o2) {
-                    return o2.getVotes().compareTo(o1.getVotes()) ;
-                }
-            });
+
+            Iterator<VoteCount> summary = report.summary((vc1, vc2) -> vc2.getVotes().compareTo(vc1.getVotes()));
             int index = 0;
             while (summary.hasNext()) {
                 System.out.printf("%dº - %s\n", ++index, summary.next());                

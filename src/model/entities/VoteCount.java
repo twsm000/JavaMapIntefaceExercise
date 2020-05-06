@@ -1,24 +1,8 @@
 package model.entities;
 
-import java.util.Comparator;
-
 public class VoteCount implements Comparable<VoteCount> {
     private String name;
     private Integer votes; 
-    private static Comparator<VoteCount> defaultOrderBy = new Comparator<VoteCount>() {
-        @Override
-        public int compare(VoteCount o1, VoteCount o2) {
-            return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
-        }
-    };
-    private static Comparator<VoteCount> orderBy = defaultOrderBy;    
-    
-    public static final void setOrderBy(Comparator<VoteCount> orderBy) {
-        if (orderBy == null)
-            VoteCount.orderBy = VoteCount.defaultOrderBy;
-        else
-            VoteCount.orderBy = orderBy;  
-    }
     
     public VoteCount(String name, Integer votes) {
         this.name = name;
@@ -60,9 +44,9 @@ public class VoteCount implements Comparable<VoteCount> {
 
     @Override
     public int compareTo(VoteCount o) {
-        return orderBy.compare(this, o);
+        return getName().toLowerCase().compareTo(o.getName().toLowerCase());
     }
-
+    
     @Override
     public String toString() {
         return name + ": " + votes;

@@ -29,9 +29,8 @@ public class CandidateSummaryReport {
         return this.summary(null);
     } 
     
-    public Iterator<VoteCount> summary(Comparator<VoteCount> ordernation) {
-        VoteCount.setOrderBy(ordernation);
-        Set<VoteCount> votes = new TreeSet<>();
+    public Iterator<VoteCount> summary(Comparator<? super VoteCount> comparator) {
+        Set<VoteCount> votes = new TreeSet<>(comparator);
         
         for (Map.Entry<String, Integer> counter : summary.entrySet()) {
             votes.add(new VoteCount(counter.getKey(), counter.getValue()));
